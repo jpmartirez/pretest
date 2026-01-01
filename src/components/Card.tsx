@@ -10,7 +10,7 @@ type cardProps = {
 const Card = ({title, description, icon:Icon, color}: cardProps) => {
 
   return (
-    <div className="p-4 bg-base-100 border border-gray-400 hover:-translate-y-1 transition duration-300 rounded-lg shadow shadow-black/40 max-w-80 cursor-pointer">
+    <div className="p-4 bg-base-200 border border-gray-400 hover:-translate-y-1 transition duration-300 rounded-lg shadow shadow-black/40 max-w-80 cursor-pointer">
         <div className={`inline-block p-2 ${color} rounded-md`}>
             <Icon className="text-white"/>
         </div>
