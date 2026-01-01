@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar"
 import Questions from "./pages/Questions"
 import { useState } from "react"
 
+
 const App = () => {
 
   const [category, setCategory] = useState("");
@@ -12,12 +13,13 @@ const App = () => {
   const [search, setSearch] = useState<string>("");
 
 
+
   return (
     <div>
       <Navbar setSearch={setSearch} search={search}/>
       <Routes>
-        <Route path="/" element={<Homepage search={search}/>}/>
-        <Route path="/questions" element={<Questions category={category}/>}/>
+        <Route path="/" element={<Homepage search={search} setDifficulty={setDifficulty} setCategory={setCategory}/>}/>
+        <Route path="/questions" element={<Questions category={category} difficulty={difficulty}/>}/>
       </Routes>
     </div>
   )
