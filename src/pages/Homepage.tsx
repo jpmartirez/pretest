@@ -1,9 +1,11 @@
 import Card from "../components/Card"
 import { categories } from "../data/categories"
 
+type homepageProps = {
+    search: string
+}
 
-
-const Homepage = () => {
+const Homepage = ({search}: homepageProps) => {
   return (
     <div className="max-w-7xl mx-auto w-full flex flex-col gap-10 px-5 mt-5">
         <div className="space-y-4">
@@ -12,8 +14,10 @@ const Homepage = () => {
         </div>
 
         <div className="flex items-center flex-wrap gap-5 justify-center">
-            {categories.map((c) =>(
-                <Card title={c.name} description={c.description} icon={c.icon} color={c.color}/>
+            {categories
+            .filter((c) => c.name.toLowerCase().includes(search.toLowerCase()))
+            .map((c) =>(
+                <Card key={c.name} title={c.name} description={c.description} icon={c.icon} color={c.color}/>
             ))}
         </div>
     </div>

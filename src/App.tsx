@@ -16,7 +16,7 @@ const App = () => {
     <div>
       <Navbar setSearch={setSearch} search={search}/>
       <Routes>
-        <Route path="/" element={<Homepage/>}/>
+        <Route path="/" element={<Homepage search={search}/>}/>
         <Route path="/questions" element={<Questions category={category}/>}/>
       </Routes>
     </div>
