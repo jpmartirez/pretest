@@ -3,6 +3,7 @@ import Homepage from "./pages/Homepage"
 import Navbar from "./components/Navbar"
 import Questions from "./pages/Questions"
 import { useState } from "react"
+import { Toaster } from "react-hot-toast"
 
 
 const App = () => {
@@ -13,9 +14,9 @@ const App = () => {
   const [search, setSearch] = useState<string>("");
 
 
-
   return (
     <div>
+      <Toaster/>
       <Navbar setSearch={setSearch} search={search}/>
       <Routes>
         <Route path="/" element={<Homepage search={search} setDifficulty={setDifficulty} setCategory={setCategory}/>}/>

@@ -25,7 +25,7 @@ const Homepage = ({ search, setDifficulty, setCategory }: homepageProps) => {
 
     return (
         <div className="max-w-7xl mx-auto w-full flex flex-col gap-10 px-5 mt-5">
-            <div className="space-y-4">
+            <div className="space-y-4 flex flex-col items-center">
                 <h1 className="font-bold text-xl md:text-2xl lg:text-4xl ">Pick a Challenge</h1>
                 <p className="text-gray-400 max-md:text-sm">Choose a category to start your knowledge journey.</p>
             </div>
