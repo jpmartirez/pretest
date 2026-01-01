@@ -1,4 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
+import { useNavigate } from "react-router"
+import QuestionCard from "../components/QuestionCard"
 
 type questionProps = {
     category: string,
@@ -11,7 +13,12 @@ interface TriviaQuestion {
     category: string,
     question: string,
     correct_answer: string,
-    incorrect_answers: any[]
+    incorrect_answers: string[]
+}
+
+interface TriviaResponse {
+    response_code: number,
+    results: TriviaQuestion[]
 }
 
 const categoryMapping: Record<string, number> = {
@@ -30,18 +37,21 @@ const categoryMapping: Record<string, number> = {
 }
 
 const Questions = ({category, difficulty}: questionProps) => {
+    const navigate = useNavigate();
+    const categoryId = categoryMapping[category] || 9;
 
-    const categoryId = categoryMapping[category] || 9; // default to 9 if not found
+    const difficultyConfig: string = difficulty.toLowerCase() === "random" ? "" : difficulty.toLowerCase();
 
-    console.log(`https://opentdb.com/api.php?amount=10&category=${categoryId}&difficulty=${difficulty.toLowerCase()}`)
-
-    const { isPending, error, data } = useQuery({
-        queryKey: ['questions'],
-        queryFn: () =>
-        fetch(`https://opentdb.com/api.php?amount=10&category=${categoryId}&difficulty=${difficulty.toLowerCase()}`).then((res) =>
-            res.json(),
-        ),
+    const { isPending, error, data } = useQuery<TriviaResponse>({
+        queryKey: ['questions', categoryId, difficulty],
+        queryFn: async () => {
+            const response = await fetch(`https://opentdb.com/api.php?amount=10&category=${categoryId}&difficulty=${difficultyConfig}`);
+            const data: TriviaResponse = await response.json();
+            return data;
+        },
     })
+
+    if (!difficulty || !category) navigate("/");
 
     if(isPending) return <div className="min-h-[80vh] w-full flex justify-center items-center">
         <span className="loading loading-spinner text-primary loading-xl"></span>
@@ -52,13 +62,23 @@ const Questions = ({category, difficulty}: questionProps) => {
     </div>
 
     return (
-        <div>
-        <h1>{category || "General Knowledge"}</h1>
-        <p>{data.results.map((e: TriviaQuestion, index:number) => (
-            <div key={index}>
-                {e.question}
+        <div className="max-w-4xl mx-auto p-5">
+            <div className="text-center mb-8">
+                <h1 className="text-3xl md:text-4xl font-bold bg-linear-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">
+                    {category}
+                </h1>
+                <p className="text-gray-500 mt-2 capitalize">{difficulty} Mode</p>
             </div>
-        ))}</p>
+            
+            <div className="space-y-6">
+                {data.results.map((question: TriviaQuestion, index: number) => (
+                    <QuestionCard 
+                        key={index} 
+                        question={question} 
+                        index={index} 
+                    />
+                ))}
+            </div>
         </div>
     )
 }

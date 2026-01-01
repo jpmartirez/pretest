@@ -10,7 +10,7 @@ type modalProps = {
 
 const Modal = ({ title, setDifficulty, onClose, setCategory }: modalProps) => {
 
-    const difficulties = ["Easy", "Medium", "Hard"]
+    const difficulties = ["Easy", "Medium", "Hard", "Random"]
 
     const navigate = useNavigate();
 
