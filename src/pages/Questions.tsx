@@ -125,8 +125,7 @@ const Questions = ({category, difficulty}: questionProps) => {
                     </div>
                 </div>
             </dialog> 
-                    </div>
-               
+        </div>
     )
 }
 
