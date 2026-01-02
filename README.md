@@ -2,7 +2,7 @@
 
 A simple trivia quiz application built with React and TypeScript. Test your knowledge across various categories with multiple difficulty levels.
 
-### Live Viewing: [Pretest Quiz App]()
+### Live Viewing: [Pretest Quiz App](https://pretestquiz.netlify.app/)
 
 ## Features
 

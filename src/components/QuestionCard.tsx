@@ -99,7 +99,7 @@ const QuestionCard = ({ question, index, setScore, setCount }: QuestionCardProps
                             <span className="mr-3 shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-white/20 font-bold text-sm">
                                 {String.fromCharCode(65 + answerIndex)}
                             </span>
-                            {answer}
+                            {he.decode(answer)}
                         </button>
                     ))}
                 </div>
