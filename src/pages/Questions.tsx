@@ -94,11 +94,11 @@ const Questions = ({category, difficulty}: questionProps) => {
                     <div className="text-center">
                         <div className="mb-4">
                             {score >= 8 ? (
-                                <div className="text-6xl">🏆</div>
+                                <div className="text-6xl">🥇</div>
                             ) : score >= 5 ? (
-                                <div className="text-6xl">🎉</div>
+                                <div className="text-6xl">🥈</div>
                             ) : (
-                                <div className="text-6xl">💪</div>
+                                <div className="text-6xl">🥉</div>
                             )}
                         </div>
                         <h3 className="font-bold text-2xl mb-2">

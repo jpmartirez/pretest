@@ -107,7 +107,7 @@ const QuestionCard = ({ question, index, setScore, setCount }: QuestionCardProps
                 {selectedAnswer && (
                     <div className={`mt-6 p-4 rounded-lg ${isCorrect ? "bg-green-900/50 border border-green-400" : "bg-red-900/50 border border-red-400"}`}>
                         <p className="font-semibold text-lg">
-                            {isCorrect ? "🎉 Correct! Great job!" : `❌ Incorrect! The correct answer is: ${he.decode(question.correct_answer)}`}
+                            {isCorrect ? "✅️ Correct! Great job!" : `❌️ Incorrect! The correct answer is: ${he.decode(question.correct_answer)}`}
                         </p>
                     </div>
                 )}
