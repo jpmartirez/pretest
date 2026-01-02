@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react"
 import he from 'he'
 
 interface TriviaQuestion {
@@ -12,10 +12,12 @@ interface TriviaQuestion {
 
 interface QuestionCardProps {
     question: TriviaQuestion
-    index: number
+    index: number,
+    setScore: Dispatch<SetStateAction<number>>,
+    setCount: Dispatch<SetStateAction<number>>
 }
 
-const QuestionCard = ({ question, index }: QuestionCardProps) => {
+const QuestionCard = ({ question, index, setScore, setCount }: QuestionCardProps) => {
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
     const [shuffledAnswers, setShuffledAnswers] = useState<string[]>([])
@@ -26,6 +28,12 @@ const QuestionCard = ({ question, index }: QuestionCardProps) => {
         ...question.incorrect_answers
     ].sort(() => Math.random() - 0.5))
     }, [])
+
+    useEffect(()=>{
+        if(isCorrect) setScore(prev=>prev+1)
+        if(selectedAnswer) setCount(prev=>prev+1)
+        console.log("HI")
+    }, [isCorrect, setScore, selectedAnswer])
 
     const handleAnswerClick = (answer: string) => {
         setSelectedAnswer(answer)
@@ -100,7 +108,6 @@ const QuestionCard = ({ question, index }: QuestionCardProps) => {
                     <div className={`mt-6 p-4 rounded-lg ${isCorrect ? "bg-green-900/50 border border-green-400" : "bg-red-900/50 border border-red-400"}`}>
                         <p className="font-semibold text-lg">
                             {isCorrect ? "🎉 Correct! Great job!" : `❌ Incorrect! The correct answer is: ${question.correct_answer}`}
-                            
                         </p>
                     </div>
                 )}
