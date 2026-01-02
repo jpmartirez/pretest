@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { useNavigate } from "react-router"
 import QuestionCard from "../components/QuestionCard"
+import { useState } from "react"
 
 type questionProps = {
     category: string,
@@ -40,6 +41,9 @@ const Questions = ({category, difficulty}: questionProps) => {
     const navigate = useNavigate();
     const categoryId = categoryMapping[category] || 9;
 
+    const [score, setScore] = useState(0);
+    const [count, setCount] = useState(0);
+
     const difficultyConfig: string = difficulty.toLowerCase() === "random" ? "" : difficulty.toLowerCase();
 
     const { isPending, error, data } = useQuery<TriviaResponse>({
@@ -51,6 +55,9 @@ const Questions = ({category, difficulty}: questionProps) => {
         },
     })
 
+    
+
+    
     if (!difficulty || !category) navigate("/");
 
     if(isPending) return <div className="min-h-[80vh] w-full flex justify-center items-center">
@@ -75,11 +82,51 @@ const Questions = ({category, difficulty}: questionProps) => {
                     <QuestionCard 
                         key={index} 
                         question={question} 
-                        index={index} 
+                        index={index}
+                        setScore={setScore} 
+                        setCount={setCount}
                     />
                 ))}
             </div>
-        </div>
+
+            <dialog id="my_modal_1" className={`modal ${count===10 && 'modal-open'}`}>
+                <div className="modal-box bg-gray-600  text-white border-0 shadow-2xl">
+                    <div className="text-center">
+                        <div className="mb-4">
+                            {score >= 8 ? (
+                                <div className="text-6xl">🏆</div>
+                            ) : score >= 5 ? (
+                                <div className="text-6xl">🎉</div>
+                            ) : (
+                                <div className="text-6xl">💪</div>
+                            )}
+                        </div>
+                        <h3 className="font-bold text-2xl mb-2">
+                            {score >= 8 ? "Excellent!" : score >= 5 ? "Good Job!" : "Keep Trying!"}
+                        </h3>
+                        <p className="text-lg opacity-90 mb-4">Your Score</p>
+                        <div className="text-4xl font-bold mb-4">{score} / 10</div>
+                        <div className="w-full bg-white/20 rounded-full h-3 mb-6">
+                            <div 
+                                className="bg-white h-3 rounded-full transition-all duration-1000 ease-out" 
+                                style={{ width: `${(score / 10) * 100}%` }}
+                            ></div>
+                        </div>
+                        <p className="text-sm opacity-75">
+                            {score >= 8 ? "You're a trivia master!" : score >= 5 ? "Not bad, keep it up!" : "Practice makes perfect!"}
+                        </p>
+                    </div>
+                    <div className="modal-action justify-center">
+                        <form method="dialog">
+                            <a href="/" className="btn btn-outline btn-white text-white border-white hover:bg-white hover:text-purple-600">
+                                Play Again
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </dialog> 
+                    </div>
+               
     )
 }
 
