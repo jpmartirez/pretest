@@ -22,20 +22,6 @@ A simple trivia quiz application built with React and TypeScript. Test your know
 - React Query (TanStack Query)
 - OpenTDB API (for trivia questions)
 
-## Getting Started
-
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-2. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-3. Open your browser at `http://localhost:5173`
-
 ## How to Play
 
 1. Select a category from the homepage
